@@ -1,30 +1,145 @@
 ---
-title: "esm204_homework2"
-author: "Kirsten White"
+title: "ESM 204 - Homework 2"
+author: "Kirsten White, Van Gonzales, Max Settineri"
 date: "4/22/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, message = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(equatiomatic)
 ```
 
-## R Markdown
+```{r}
+# Read in the data
+water_data <- read_csv(here("Water_Districts.csv")) %>%
+  clean_names
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Re-organize the data
+mc_data <- pivot_longer(data = water_data, 
+                        cols = mc_kern:mc_ventura, 
+                        names_to = "district", 
+                        values_to = "mc") 
 ```
 
-## Including Plots
+# PART 1 
+## Marginal Abatement Cost Curves for each Irrigation District
 
-You can also embed plots, for example:
+For each irrigation district, plot the marginal abatement cost data (from the data provided) and estimate a linear regression model with zero intercept. These estimated linear regressions will be your estimates of the marginal abatement cost curve (one for each irrigation district), which you will use for the remainder of this analysis.
+ 
+The curves were found by plotting the provided data on marginal abatement costs and then estimating a linear regression model. For the remainder of the analysis, these estimated linear regressions will be utilized as the MC of abatement.  
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+# Plot the data for each irrigation district
+# run a linear regression for each, estimate linear regression model w/ zero intercept 
+# use these linear regressions as an estimate of the MC abatement curve going forward
+
+# All together
+ggplot(data = mc_data, aes(x = reduction, y = mc))+
+  geom_jitter(size = 0.5, aes(color = district))+
+  theme_grey()+ 
+  geom_smooth(method = "lm", aes(color = district))+
+  labs(x = "Abatement (Acre Feet, AF)", 
+       y = "Price of Water Reduction ($/AF)", 
+       title = "Marginal Cost Curves")+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+```{r}
+# Create Marginal Abatement Cost Linear Regression Model 
+# Linear models for each district 
+
+lm_kern <- lm(mc_kern ~ 0 + reduction, data = water_data)
+lm_mojave <- lm(mc_mojave ~ 0 + reduction, data = water_data)
+lm_antelope <- lm(mc_antelope ~ 0 + reduction, data = water_data)
+lm_ventura <- lm(mc_ventura ~ 0 + reduction, data = water_data)
+
+# Find slopes for each district
+
+slope_kern <- lm_kern$coefficient[1]
+slope_mojave <- lm_mojave$coefficient[1]
+slope_antelope <- lm_antelope$coefficient[1]
+slope_ventura <- lm_ventura$coefficient[1]
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# PART 2 
+## Water Demand Curves for each Irrigation District 
+
+Using your estimated marginal abatement cost curves, derive each district’s demand curve for water. In other words, how much would each district be willing to pay for the right to use the first AF of water, second AF, etc.? Plot each district’s demand curve on a single graph.
+Which sector is willing to pay the most for the first AF of water?
+
+```{r}
+# Derive District's Demand Curves for Water
+
+# Abatement = Eo - E
+
+# Eo provided as the baseline usage for each district
+
+Eo_kern <- 150
+Eo_mojave <- 140
+Eo_antelope <- 220
+Eo_ventura <- 245
+
+# Derive each demand curve by substituting it on the previous marginal cost curves
+
+# If Abatement = Eo - E; 
+
+kern_mb <- function(x){343.5 - 2.29*x}
+mojave_mb <- function(x){532.0 - 3.8*x}
+antelope_mb <- function(x){629.2 - 2.86*x}
+ventura_mb <- function(x){436.1 - 1.78*x}
+
+
+# Plot Demand Curves
+
+ggplot(data.frame(x = c(0, 250)), aes(x = x)) + 
+  stat_function(fun = kern_mb, color = "green") +
+  stat_function(fun = mojave_mb, color = "cyan") +
+  stat_function(fun = antelope_mb, color = "pink") +
+  stat_function(fun = ventura_mb, color = "purple") +
+  theme_minimal() +
+  ylim(0, 750) +
+  labs(x = "Amount of Water Used (AF)", y = "Price of Water Reduction ($/AF)",
+       title = "Demand for Water") 
+```
+Based off of the graph above, Antelope is willing to pay the most for the first unit of abatement. 
+
+# Question 3
+- Here you will analyze three alternative policies for reducing water use among these irrigation districts.
+- In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
+
+### Policy A - Cap Without Trade 
+Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
+
+1) Stringency, magnitude of the fraction: 
+- All districts have to reduce 0.338 from their starting baseline to reach 500 AF.  
+
+2) Total costs (total costs of abatement for each district) 
+- $22,500
+
+3) Cost to each district
+- Kern needs to abate by 50.7 units (0.338 * 150) from the baseline of 150; cost to abate at the new Q (of 99.3): y (P* ) = 343.5 - 2.29 (99.3) = 115.20; therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,920.32
+- Mojave needs to abate by (0.338 * 140) = 47.32 units; cost to abate:   
+  y (P* ) = 532.0 - 3.8* (47.32) = 179.82, P (total cost) = (0.5 * 179.82*47.32) = $4,254.54
+- Antelope needs to abate by (0.338 * 220) = 74.36 units; cost to abate: 
+  y (P* ) = 629.2 - 2.86* (74.36) = 212.70;  P (total cost) = (0.5 * 212.70 * 74.26) = $7,907.07
+- Ventura needs to abate by (0.338 * 245) = 82.81 units; cost to abate:   
+  y (P* ) = 436.1 - 1.78* (82.82) = 147, P (total cost) = (0.5 * 147 * 82.82) = $6,103.51
+    
+
+### Policy B - Tax on Water Usage
+A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
+
+- To evaluate the tax needed to achieve a use target of 500 AF, we must compute the aggregate marginal cost curve and calculate the correspondent $/AF for that reduction (255 AF).
+
+
+Step 1: Find the MC Aggregate 
+
+- MC Aggregate = 1.61(P)
+
+
+### Policy C - Cap and Trade
+Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
+

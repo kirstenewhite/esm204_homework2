@@ -147,36 +147,36 @@ ventura_use_reduction  <- (a_stringency * ventura_baseline)
 
 # Now we can find the new abatement values by subtracting each districts baseline water use from the amount they need to reduce by 
 
-kern_abatement <- kern_baseline - kern_use_reduction
+kern_abatement_cap <- kern_baseline - kern_use_reduction
 # kern needs to abate 50.7 units from baseline 150 = 99.3
-mojave_abatement <- mojave_baseline - mojave_use_reduction
+mojave_abatement_cap <- mojave_baseline - mojave_use_reduction
 # mojave needs to abate 47.32 units from baseline 140 = 92.7
-antelope_abatement <- antelope_baseline - antelope_use_reduction
+antelope_abatement_cap <- antelope_baseline - antelope_use_reduction
 # antelope needs to abate 74.36 units from baseline 220 = 145.6
-ventura_abatement <- ventura_baseline - ventura_use_reduction
+ventura_abatement_cap <- ventura_baseline - ventura_use_reduction
 # ventura needs to abate 82.81 units from baseline 245 = 162.3 
 
 # With the new quantity of water each district is allowed to use, we can find the price at this new abatement level 
 
 # Then, to find the total cost to each district, we can plug in the reduction (new abatement quantity) into each district's cost curve (equation of the MC curve) and find the area under the line (area of a triangle)
 
-kern_price_abatement <- (343.5-2.29*(kern_abatement))
+kern_price_abatement <- (343.5-2.29*(kern_abatement_cap))
 kern_cost_abatement <- (0.5 * kern_use_reduction * kern_price_abatement)
 # y (P* ) = 343.5 - 2.29 (99.3) =  115.20; 
 # therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,938.83
 # kern total cost = $2,938.83
 
-mojave_price_abatement <- (532.0 - 3.8*(mojave_abatement))
+mojave_price_abatement <- (532.0 - 3.8*(mojave_abatement_cap))
 mojave_cost_abatement <- (0.5 * mojave_use_reduction * mojave_price_abatement)
 # y (P* ) = 532.0 - 3.8* (92.68) = 179.82, 
 # mojave total cost = (0.5 * 179.82*47.32) = $4,248.11
 
-antelope_price_abatement <- (629.2 - 2.86*(antelope_abatement))
+antelope_price_abatement <- (629.2 - 2.86*(antelope_abatement_cap))
 antelope_cost_abatement <- (0.5 * antelope_use_reduction * antelope_price_abatement)
 #y (P* ) = 629.2 - 2.86* (145.64) = 212.70; 
 # antelope total cost = (0.5 * 212.70 * 74.26) = $7,895.29
 
-ventura_price_abatement <- (436.1 - 1.78*(ventura_abatement))
+ventura_price_abatement <- (436.1 - 1.78*(ventura_abatement_cap))
 ventura_cost_abatement <- (0.5 * ventura_use_reduction * ventura_price_abatement)
 # y (P* ) = 436.1 - 1.78* (162.192) = 147, P 
 # ventura total cost = (0.5 * 147 * 82.82) = $6,094.09
@@ -186,7 +186,7 @@ total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_
 ```
 - Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
 
-- The total cost to each district under this policy is: 
+- The total cost to each district under this cap with no trade policy is: 
 
   - Kern: $`r round(kern_cost_abatement, 0)`
 
@@ -218,9 +218,64 @@ tax_target <- 255/mc_aggregate_slope
 
 # step 3: find the amount of water usage each district needs to reduce by at this tax level (by plugging in the tax and solving for the new abatement quantity) 
 
+kern_abatement_tax <- tax_target/slope_kern
+# kern needs to abate 69.13 units
+mojave_abatement_tax <- tax_target/slope_mojave
+# mojave needs to abate 41.55 units
+antelope_abatement_tax <- tax_target/slope_antelope
+# antelope needs to abate 55.31 units
+ventura_abatement_tax <- tax_target/slope_ventura
+# ventura needs to abate 88.99 units
+
+# step 4: find the total cost to each district (using new abatement level and tax)
+
+kern_cost_tax <- (0.5 * tax_target * kern_abatement_tax)
+# it will cost kern 5463.93 
+mojave_cost_tax <- (0.5 * tax_target * mojave_abatement_tax)
+# it will cost mojave 3284.04
+antelope_cost_tax <- (0.5 * tax_target * antelope_abatement_tax)
+# it will cost antelope 4371.64
+ventura_cost_tax <- (0.5 * tax_target * ventura_abatement_tax)
+# it will cost ventura 7033.93
+
+# step 5: sum each district cost to find the total cost 
+total_cost_tax <- (kern_cost_tax + mojave_cost_tax + antelope_cost_tax + ventura_cost_tax)
+
+# step 6: find total tax revenue generated
+# should be ~79k
+# calculate the amount each district is still using by the tax level (baseline - reduction)*tax)
+
+kern_tax_revenue <- ((kern_baseline-kern_abatement_tax)*tax_target)
+# kern tax revenue: 12782.18
+mojave_tax_revenue <- ((mojave_baseline-mojave_abatement_tax)*tax_target)
+# mojave tax revenue: 15561.29
+antelope_tax_revenue <- ((antelope_baseline-antelope_abatement_tax)*tax_target)
+# antelope tax revenue: 26031.44
+ventura_tax_revenue <- ((ventura_baseline-ventura_abatement_tax)*tax_target)
+ventura_tax_revenue
+# ventura tax revenue: 24658.53
+
+total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenue + ventura_tax_revenue)
+# total tax revenue: 79033.44
 
 ```
+- The stringency under this policy is a `r round(tax_target, 2)`
 
+- The total cost to each district under this tax policy is: 
+
+  - Kern: $`r round(kern_cost_tax, 0)`
+
+  - Mojave: $`r round(mojave_cost_tax, 0)`
+
+  - Antelope: $`r round(antelope_cost_tax, 0)`
+
+  - Ventura: $`r round(ventura_cost_tax, 0)`
+
+- The overall total cost of this tax policy is: 
+  - $`r total_cost_tax`
+  
+- Total tax revenue generated is: 
+  - $`r round(total_tax_revenue`
 
 Step 1: Find the MC Aggregate 
 

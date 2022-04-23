@@ -185,6 +185,10 @@ total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_
 # the total cost of abatement for all the districts under this policy is $21,176.32
 ```
 - Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
+  - Kern reduces `r round(kern_use_reduction, 2)` units from `r kern_baseline` down to `r round(kern_abatement_cap, 2)`
+  - Mojave reduces `r round(mojave_use_reduction, 2)` units
+  - Antelope reduces `r round(antelope_use_reduction, 2)` units
+  - Ventura reduces `r round(ventura_use_reduction, 2)` units
 
 - The total cost to each district under this cap with no trade policy is: 
 
@@ -275,15 +279,10 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
   - $`r total_cost_tax`
   
 - Total tax revenue generated is: 
-  - $`r round(total_tax_revenue`
-
-Step 1: Find the MC Aggregate 
-
-- MC Aggregate(Q) = 1.61(P)
-
-Step 2: Find the tax
+  - $`r round(total_tax_revenue)`
 
 
 ### Policy C - Cap and Trade
 Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
+
 

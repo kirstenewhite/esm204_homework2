@@ -114,19 +114,37 @@ Based off of the graph above, Antelope is willing to pay the most for the first 
 Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
 
 1) Stringency, magnitude of the fraction: 
-- All districts have to reduce 0.338 from their starting baseline to reach 500 AF.  
+```{r}
+# Stringency 
+a_stringency <- (255/755)
+
+# Amount each district needs to abate to reach goal 
+kern_abate <- (a_stringency * Eo_kern)
+kern_new_q <- (Eo_kern - kern_abate)
+kern_new_p <- ()
+
+```
+
+- All districts have to reduce  from their starting baseline to reach 500 AF.  
 
 2) Total costs (total costs of abatement for each district) 
 - $22,500
 
 3) Cost to each district
-- Kern needs to abate by 50.7 units (0.338 * 150) from the baseline of 150; cost to abate at the new Q (of 99.3): y (P* ) = 343.5 - 2.29 (99.3) = 115.20; therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,920.32
+- Kern needs to abate by `r kern_abate` (50.7 units) from the baseline of 150 `r Eo_kern`; cost to abate at the new Q (of 99.3): y (P* ) = 343.5 - 2.29 (99.3) =  115.20; therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = 
+$2,920.32
+
 - Mojave needs to abate by (0.338 * 140) = 47.32 units; cost to abate:   
-  y (P* ) = 532.0 - 3.8* (47.32) = 179.82, P (total cost) = (0.5 * 179.82*47.32) = $4,254.54
+  y (P* ) = 532.0 - 3.8* (92.68) = 179.82, P (total cost) = (0.5 * 179.82*47.32) = 
+  $4,254.54
+  
 - Antelope needs to abate by (0.338 * 220) = 74.36 units; cost to abate: 
-  y (P* ) = 629.2 - 2.86* (74.36) = 212.70;  P (total cost) = (0.5 * 212.70 * 74.26) = $7,907.07
+  y (P* ) = 629.2 - 2.86* (145.64) = 212.70;  P (total cost) = (0.5 * 212.70 * 74.26) = 
+  $7,907.07
+  
 - Ventura needs to abate by (0.338 * 245) = 82.81 units; cost to abate:   
-  y (P* ) = 436.1 - 1.78* (82.82) = 147, P (total cost) = (0.5 * 147 * 82.82) = $6,103.51
+  y (P* ) = 436.1 - 1.78* (162.192) = 147, P (total cost) = (0.5 * 147 * 82.82) = 
+  $6,103.51
     
 
 ### Policy B - Tax on Water Usage
@@ -137,7 +155,9 @@ A single tax is implemented on all water use in each of the four districts, such
 
 Step 1: Find the MC Aggregate 
 
-- MC Aggregate = 1.61(P)
+- MC Aggregate(Q) = 1.61(P)
+
+Step 2: Find the tax
 
 
 ### Policy C - Cap and Trade

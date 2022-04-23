@@ -185,10 +185,10 @@ total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_
 # the total cost of abatement for all the districts under this policy is $21,176.32
 ```
 - Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
-  - Kern reduces `r round(kern_use_reduction, 2)` units from `r kern_baseline` down to `r round(kern_abatement_cap, 2)`
-  - Mojave reduces `r round(mojave_use_reduction, 2)` units
-  - Antelope reduces `r round(antelope_use_reduction, 2)` units
-  - Ventura reduces `r round(ventura_use_reduction, 2)` units
+  - Kern reduces `r round(kern_use_reduction, 2)` units from `r kern_baseline` AF down to `r round(kern_abatement_cap, 2)` AF at a price of `r round(kern_price_abatement, 2)` $/AF. 
+  - Mojave reduces `r round(mojave_use_reduction, 2)` units from `r mojave_baseline` AF down to `r round(mojave_abatement_cap, 2)`AFat a price of `r round(mojave_price_abatement, 2)` $/AF.
+  - Antelope reduces `r round(antelope_use_reduction, 2)` units from `r antelope_baseline` AF down to `r round(antelope_abatement_cap, 2)` AF at a price of `r round(antelope_price_abatement, 2)` $/AF.
+  - Ventura reduces `r round(ventura_use_reduction, 2)` units from `r ventura_baseline` AF down to `r round(ventura_abatement_cap, 2)` AF at a price of `r round(ventura_price_abatement, 2)` $/AF.
 
 - The total cost to each district under this cap with no trade policy is: 
 
@@ -276,7 +276,7 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
   - Ventura: $`r round(ventura_cost_tax, 0)`
 
 - The overall total cost of this tax policy is: 
-  - $`r total_cost_tax`
+  - $`r round(total_cost_tax, 4)`
   
 - Total tax revenue generated is: 
   - $`r round(total_tax_revenue)`
@@ -284,5 +284,14 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
 
 ### Policy C - Cap and Trade
 Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
+
+Under this policy, the stringency will be the same as Policy A - 0.338% and there will be no tax revenue generated
+
+The cost to each district and the total program cost under a cap without trade policy was found in Policy A (above). 
+
+The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($158). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $21,1763.16. 
+
+
+
 
 

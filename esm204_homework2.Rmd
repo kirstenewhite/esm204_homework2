@@ -117,6 +117,7 @@ ggplot(data.frame(x = c(0, 250)), aes(x = x)) +
   labs(x = "Amount of Water Used (AF)", y = "Price of Water Reduction ($/AF)",
        title = "Demand for Water") 
 ```
+
 Based off of the graph above, Antelope is willing to pay the most for the first unit of abatement. 
 
 # PART 3 - Policy Considerations
@@ -161,44 +162,64 @@ ventura_abatement <- ventura_baseline - ventura_use_reduction
 
 kern_price_abatement <- (343.5-2.29*(kern_abatement))
 kern_cost_abatement <- (0.5 * kern_use_reduction * kern_price_abatement)
-# y (P* ) = 343.5 - 2.29 (99.3) =  115.20; therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,938.83
+# y (P* ) = 343.5 - 2.29 (99.3) =  115.20; 
+# therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,938.83
+# kern total cost = $2,938.83
 
 mojave_price_abatement <- (532.0 - 3.8*(mojave_abatement))
 mojave_cost_abatement <- (0.5 * mojave_use_reduction * mojave_price_abatement)
-# y (P* ) = 532.0 - 3.8* (92.68) = 179.82, P (total cost) = (0.5 * 179.82*47.32) = $4,248.11
+# y (P* ) = 532.0 - 3.8* (92.68) = 179.82, 
+# mojave total cost = (0.5 * 179.82*47.32) = $4,248.11
 
 antelope_price_abatement <- (629.2 - 2.86*(antelope_abatement))
 antelope_cost_abatement <- (0.5 * antelope_use_reduction * antelope_price_abatement)
-#y (P* ) = 629.2 - 2.86* (145.64) = 212.70;  P (total cost) = (0.5 * 212.70 * 74.26) = $7,895.29
+#y (P* ) = 629.2 - 2.86* (145.64) = 212.70; 
+# antelope total cost = (0.5 * 212.70 * 74.26) = $7,895.29
 
+ventura_price_abatement <- (436.1 - 1.78*(ventura_abatement))
+ventura_cost_abatement <- (0.5 * ventura_use_reduction * ventura_price_abatement)
+# y (P* ) = 436.1 - 1.78* (162.192) = 147, P 
+# ventura total cost = (0.5 * 147 * 82.82) = $6,094.09
+
+total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_abatement + ventura_cost_abatement
+# the total cost of abatement for all the districts under this policy is $21,176.32
 ```
+- Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
 
-- All districts have to reduce  from their starting baseline to reach 500 AF.  
+- The total cost to each district under this policy is: 
 
-2) Total costs (total costs of abatement for each district) 
-- $22,500
+  - Kern: $`r round(kern_cost_abatement, 0)`
 
-3) Cost to each district
-- Kern needs to abate by  (50.7 units) from the baseline of 150; cost to abate at the new Q (of 99.3): y (P* ) = 343.5 - 2.29 (99.3) =  115.20; therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = 
-$2,920.32
+  - Mojave: $`r round(mojave_cost_abatement, 0)`
 
-- Mojave needs to abate by (0.338 * 140) = 47.32 units; cost to abate:   
-  y (P* ) = 532.0 - 3.8* (92.68) = 179.82, P (total cost) = (0.5 * 179.82*47.32) = 
-  $4,254.54
-  
-- Antelope needs to abate by (0.338 * 220) = 74.36 units; cost to abate: 
-  y (P* ) = 629.2 - 2.86* (145.64) = 212.70;  P (total cost) = (0.5 * 212.70 * 74.26) = 
-  $7,907.07
-  
-- Ventura needs to abate by (0.338 * 245) = 82.81 units; cost to abate:   
-  y (P* ) = 436.1 - 1.78* (162.192) = 147, P (total cost) = (0.5 * 147 * 82.82) = 
-  $6,103.51
+  - Antelope: $`r round(antelope_cost_abatement, 0)`
+
+  - Ventura: $`r round(ventura_cost_abatement, 0)`
+
+- The overall total cost is: 
+  - $`r total_cost_abate`
+
     
 
 ### Policy B - Tax on Water Usage
 A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
 
 - To evaluate the tax needed to achieve a use target of 500 AF, we must compute the aggregate marginal cost curve and calculate the correspondent $/AF for that reduction (255 AF).
+```{r}
+# step 1: Find the MC Aggregate demand by adding up the inverse slopes of each district's marginal cost curve
+
+mc_aggregate_slope <- (1/slope_kern + 1/slope_mojave + 1/slope_antelope + 1/slope_ventura)
+# MC Aggregate = 1.61Q
+
+# step 2: find the tax at the target abatement level of 255
+
+tax_target <- 255/mc_aggregate_slope
+# tax is $158.07
+
+# step 3: find the amount of water usage each district needs to reduce by at this tax level (by plugging in the tax and solving for the new abatement quantity) 
+
+
+```
 
 
 Step 1: Find the MC Aggregate 

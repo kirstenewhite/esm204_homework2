@@ -361,36 +361,36 @@ ventura_300_abatement_cap <- ventura_abatement_cap - ventura_300_use_reduction
 # Then, to find the total cost to each district, we can plug in the reduction (new abatement quantity) into each district's cost curve (equation of the MC curve) and find the area under the line (area of a triangle)
 
 kern_300_price_abatement <- (343.5-2.29*(kern_300_abatement_cap))
-kern_300cost_abatement <- (0.5 * kern_300_use_reduction * kern_300_price_abatement)
-# y (P* ) = 343.5 - 2.29 (99.3) =  115.20; 
-# therefore the total cost to abate is the area under the curve = (1/2 * 50.7 * 115.20) = $2,938.83
-# kern total cost = $2,938.83
+kern_300_cost_abatement <- (0.5 * kern_300_use_reduction * kern_300_price_abatement)
+# y (P* ) = 343.5 - 2.29 (59.60) =  207.01; 
+# therefore the total cost to abate is the area under the curve = (1/2 * 39.74 * 207.01) = $4,112.78
+# kern total cost = $4,112.78
 
 mojave_300_price_abatement <- (532.0 - 3.8*(mojave_300_abatement_cap))
 mojave_300_cost_abatement <- (0.5 * mojave_300_use_reduction * mojave_300_price_abatement)
-# y (P* ) = 532.0 - 3.8* (92.68) = 179.82, 
-# mojave total cost = (0.5 * 179.82*47.32) = $4,248.11
+# y (P* ) = 532.0 - 3.8* (55.63) = 320.61, 
+# mojave total cost = (0.5 * 320.61*37.09) = $5,945.07
 
 antelope_300_price_abatement <- (629.2 - 2.86*(antelope_300_abatement_cap))
 antelope_300_cost_abatement <- (0.5 * antelope_300_use_reduction * antelope_300_price_abatement)
-#y (P* ) = 629.2 - 2.86* (145.64) = 212.70; 
-# antelope total cost = (0.5 * 212.70 * 74.26) = $7,895.29
+#y (P* ) = 629.2 - 2.86* (87.42) = 379.19; 
+# antelope total cost = (0.5 * 379.19 * 58.28) = $11,049.15
 
 ventura_300_price_abatement <- (436.1 - 1.78*(ventura_300_abatement_cap))
 ventura_300_cost_abatement <- (0.5 * ventura_300_use_reduction * ventura_300_price_abatement)
-# y (P* ) = 436.1 - 1.78* (162.192) = 147, P 
-# ventura total cost = (0.5 * 147 * 82.82) = $6,094.09
+# y (P* ) = 436.1 - 1.78* (97.35) = 262.82
+# ventura total cost = (0.5 * 262.82 * 97.35) = $8,528.44
 
 total_300_cost_abate <- kern_300_cost_abatement + mojave_300_cost_abatement + antelope_300_cost_abatement + ventura_300_cost_abatement
-# the total cost of abatement for all the districts under this policy is $21,176.32
+# the total cost of abatement for all the districts under this policy is $29,635.44
 ```
 
 (1) Each district has to reduce `r round(four_stringency, 3)*100`% from their starting baseline to reach the abatement target of 300 AF.  
 
-  - Kern reduces `r round(kern_300_use_reduction, 2)` units from `r kern_abatement_cap` AF down to `r round(kern_300_abatement_cap, 2)` AF at a price of `r round(kern_300price_abatement, 2)` $/AF. 
-  - Mojave reduces `r round(mojave_300_use_reduction, 2)` units from `r mojave_abatement_cap` AF down to `r round(mojave_300_abatement_cap, 2)`AFat a price of `r round(mojave_300_price_abatement, 2)` $/AF.
-  - Antelope reduces `r round(antelope_300_use_reduction, 2)` units from `r antelope_abatement_cap` AF down to `r round(antelope_300_abatement_cap, 2)` AF at a price of `r round(antelope_300_price_abatement, 2)` $/AF.
-  - Ventura reduces `r round(ventura_300_use_reduction, 2)` units from `r ventura_abatement_cap` AF down to `r round(ventura_300_abatement_cap, 2)` AF at a price of `r round(ventura_300_price_abatement, 2)` $/AF.
+  - Kern reduces `r round(kern_300_use_reduction, 2)` units from `r round(kern_abatement_cap, 2)` AF down to `r round(kern_300_abatement_cap, 2)` AF at a price of `r round(kern_300_price_abatement, 2)` $/AF. 
+  - Mojave reduces `r round(mojave_300_use_reduction, 2)` units from `r round(mojave_abatement_cap, 2)` AF down to `r round(mojave_300_abatement_cap, 2)`AF at a price of `r round(mojave_300_price_abatement, 2)` $/AF.
+  - Antelope reduces `r round(antelope_300_use_reduction, 2)` units from `r round(antelope_abatement_cap, 2)` AF down to `r round(antelope_300_abatement_cap, 2)` AF at a price of `r round(antelope_300_price_abatement, 2)` $/AF.
+  - Ventura reduces `r round(ventura_300_use_reduction, 2)` units from `r round(ventura_abatement_cap, 2)` AF down to `r round(ventura_300_abatement_cap, 2)` AF at a price of `r round(ventura_300_price_abatement, 2)` $/AF.
   
 
 (2) The overall total cost is: 

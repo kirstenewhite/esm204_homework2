@@ -1,11 +1,12 @@
 ---
 title: "ESM 204 - Assignment 2"
 author: "Kirsten White, Van Gonzales, Max Settineri"
-date: "4/22/2022"
+date: "April 24, 2022"
 output: 
   html_document: 
-    highlight: haddock
+    highlight: espresso
     theme: flatly
+    toc: yes
 ---
 
 ```{r setup, message = FALSE, echo = FALSE}
@@ -295,10 +296,10 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
 # total tax revenue: 79033.44
 
 ```
-(1) The stringency under this policy is a `r round(tax_target, 2)`
+(1) The stringency under this policy is a tax of $`r round(tax_target, 2)`
 
 (2) The overall total cost of this tax policy is: 
-  - $`r round(total_cost_tax, 4)`
+    - $`r round(total_cost_tax, 4)`
 
 (3) The total cost to each district under this tax policy is: 
 

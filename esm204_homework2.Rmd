@@ -460,6 +460,6 @@ The total cost to each district under this tax policy is:
 
 ### **Policy C - Cap and Trade**
 
-
+The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($282.04). Therefore, the total cost of meeting the 300 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $64,164.34. 
 
 

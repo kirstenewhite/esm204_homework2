@@ -328,6 +328,10 @@ The equimarginal principle tells us that units will be bought and sold at the sa
 
 # Part 4
 
+A severe drought hits California, and it is necessary to reduce water use from 500 AF down to 300 AF. Your job is to estimate the cost of the drought (i.e., the cost of reducing water use from 500 AF to 300 AF) to each irrigation district under each policy. Considering the entire jump from status quo (755 AF) to the drought (300 AF), which policy is preferred by each irrigation district? How does your answer depend on how rights are allocated to each district (in policies (a) and (c))? 
+
+### **Policy A - Cap Without Trade** 
+
 ```{r}
 # Stringency is the fraction by which each district has to reduce its water usage (the amount each district has to reduce will total to 300 AF)
 four_stringency <- (200/500)
@@ -406,6 +410,53 @@ total_300_cost_abate <- kern_300_cost_abatement + mojave_300_cost_abatement + an
 
   - Ventura: $`r round(ventura_300_cost_abatement, 0)`
   
+### **Policy B - Tax on Water Usage**
+
+```{r}
+# step 1: use the aggregate slope calculated in part 3 to find the tax target at 300 AF of water usage
+
+tax_target_300 <- 455/mc_aggregate_slope
+# tax is $282.04
+
+# step 2: find the amount of water usage each district needs to reduce by at this tax level (by plugging in the tax and solving for the new abatement quantity) 
+
+kern_300_abatement_tax <- tax_target_300/slope_kern
+# kern needs to abate 123.36 units
+mojave_300_abatement_tax <- tax_target_300/slope_mojave
+# mojave needs to abate 74.14 units
+antelope_300_abatement_tax <- tax_target_300/slope_antelope
+# antelope needs to abate 98.70 units
+ventura_300_abatement_tax <- tax_target_300/slope_ventura
+# ventura needs to abate 158.80 units
+
+# step 3: find the total cost to each district (using new abatement level and tax)
+
+kern_cost_tax_300 <- (0.5 * tax_target_300 * kern_300_abatement_tax)
+# it will cost kern 17395.91 
+mojave_cost_tax_300 <- (0.5 * tax_target_300 * mojave_300_abatement_tax)
+# it will cost mojave 10455.63
+antelope_cost_tax_300 <- (0.5 * tax_target_300 * antelope_300_abatement_tax)
+# it will cost antelope 13918.31
+ventura_cost_tax_300 <- (0.5 * tax_target_300 * ventura_300_abatement_tax)
+# it will cost ventura 22394.46
+
+# step 5: sum each district cost to find the total cost 
+total_cost_tax_300 <- (kern_cost_tax_300 + mojave_cost_tax_300 + antelope_cost_tax_300 + ventura_cost_tax_300)
+
+```
+
+The overall total cost of this tax policy is: 
+    - $`r round(total_cost_tax_300, 4)`
+
+The total cost to each district under this tax policy is: 
+
+  - Kern: $`r round(kern_cost_tax_300, 0)`
+
+  - Mojave: $`r round(mojave_cost_tax_300, 0)`
+
+  - Antelope: $`r round(antelope_cost_tax_300, 0)`
+
+  - Ventura: $`r round(ventura_cost_tax_300, 0)`
 
 
 

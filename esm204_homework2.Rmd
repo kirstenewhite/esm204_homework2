@@ -474,3 +474,20 @@ The total cost to each district under this tax policy is:
 The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($282.04). Therefore, the total cost of meeting the 300 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $44,010.78. 
 
 
+
+### Which Policy is Preferred?
+**Table 1**
+
+```{r}
+District  = c("Kern", "Mojave", "Antelope", "Ventura")
+Cap_No_Trade = c("7,052", "10,193", "18,944", "14,622")
+Tax = c("17,396", "10,456", "13,919", "22,395")
+Cap_and_Trade = c("-", "-", "-", "-")
+
+df <- data.frame(District, Cap_No_Trade, Tax, Cap_and_Trade)
+
+df
+                  
+```
+
+Part 3 calculates the cost of abatement of reducing total water usage from 755 to 500 AF for each district. Part 4 calculates the cost of abatement of reducing total water usage from 500 to 300 AF for each district. Table 1  displays the total costs of abatement from 755 to 300 AF for each district by policy. As displayed, for all districts except Antelope, the "Cap No Trade" policy will be the least costly. However, Antelope will prefer the tax. 

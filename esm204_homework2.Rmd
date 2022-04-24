@@ -1,8 +1,11 @@
 ---
-title: "ESM 204 - Homework 2"
+title: "ESM 204 - Assignment 2"
 author: "Kirsten White, Van Gonzales, Max Settineri"
 date: "4/22/2022"
-output: html_document
+output: 
+  html_document: 
+    highlight: haddock
+    theme: flatly
 ---
 
 ```{r setup, message = FALSE, echo = FALSE}
@@ -12,18 +15,7 @@ library(here)
 library(janitor)
 library(equatiomatic)
 ```
-# Overview
 
-The dataset contains estimates of the marginal cost of reducing water usage in each of the four irrigation districts (Kern, Mojave, Antelope, and Ventura) at different levels of reduction (in Acre Feet).
-
-Baseline water usage by district is provided: 
-
-- Kern = 150 AF
-- Mojave = 140 AF
-- Antelope = 220 AF 
-- Ventura = 245 AF
-
-Prices are in $/Acre Foot and quantities are in Acre Feet (AF).
 
 ```{r}
 # Read in the data
@@ -38,13 +30,15 @@ mc_data <- pivot_longer(data = water_data,
 
 ```
 
-# PART 1 - Marginal Abatement Cost Curves for each Irrigation District
+# Part 1
+
+### Plotting Marginal Cost Curves by Irrigation District 
+
+The dataset contains estimates of the marginal cost of reducing water usage in each of the four irrigation districts (Kern, Mojave, Antelope, and Ventura) at different levels of reduction (in Acre Feet).
 
 For each irrigation district, plot the marginal abatement cost data (from the data provided) and estimate a linear regression model with zero intercept. These estimated linear regressions will be your estimates of the marginal abatement cost curve (one for each irrigation district), which you will use for the remainder of this analysis.
 
-### Figure 1: This graph shows MC curves for each district
-
-```{r}
+```{r, include = FALSE}
 # Plot the data for each irrigation district
 
 # All together
@@ -52,12 +46,11 @@ ggplot(data = mc_data, aes(x = reduction, y = mc))+
   geom_jitter(size = 0.5, aes(color = district))+
   theme_grey()+ 
   geom_smooth(method = "lm", aes(color = district))+
-  labs(x = "Abatement (Acre Feet, AF)", 
-       y = "Price of Water Reduction ($/AF)", 
+  labs(x = "Quantity of Water (Acre Feet, AF)", 
+       y = "Price of Reduction ($/AF)", 
        title = "Marginal Cost Curves")+
   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
-
 
 
 ```{r}
@@ -74,14 +67,35 @@ slope_kern <- lm_kern$coefficient[1]
 slope_mojave <- lm_mojave$coefficient[1]
 slope_antelope <- lm_antelope$coefficient[1]
 slope_ventura <- lm_ventura$coefficient[1]
+
+# Save the MC curve line equations for each district  
+mc_kern <- function(x){lm_kern$coef*x}
+mc_mojave <- function(x){lm_mojave$coef*x}
+mc_antelope <- function(x){lm_antelope$coef*x}
+mc_ventura <- function(x){lm_ventura$coef*x}
+
+# Plot the MC curves
+
+ggplot() +
+  stat_function(aes(color = "Kern"), fun = mc_kern, size = 1) +
+  stat_function(aes(color = "Mojave"), fun = mc_mojave, size = 1) +
+  stat_function(aes(color = "Antelope"), fun = mc_antelope, size = 1) +
+  stat_function(aes(color = "Ventura"), fun = mc_ventura, size = 1) +
+  scale_x_continuous(name="Quantity of Water (Acre feet, AF)", limits=c(0,245),expand = c(0, 0)) +
+  scale_y_continuous(name="Price of Reduction ($/AF)", limits=c(0,629),expand = c(0, 0)) +
+  theme_classic() +
+  labs(title = "Marginal Cost Curves by District")+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+  
 ```
 
-# PART 2 - Water Demand Curves for each Irrigation District 
+
+# Part 2
+
+### Plotting Water Demand Curves by Irrigation District 
 
 Using your estimated marginal abatement cost curves, derive each district’s demand curve for water. In other words, how much would each district be willing to pay for the right to use the first AF of water, second AF, etc.? Plot each district’s demand curve on a single graph.
 Which sector is willing to pay the most for the first AF of water?
-
-### Figure 2: This graph shows water demand for each district  
 
 ```{r}
 # Derive District's Demand Curves for Water
@@ -108,23 +122,33 @@ ventura_mb <- function(x){436.1 - 1.78*x}
 # Plot Demand Curves
 
 ggplot(data.frame(x = c(0, 250)), aes(x = x)) + 
-  stat_function(fun = kern_mb, color = "green") +
-  stat_function(fun = mojave_mb, color = "cyan") +
-  stat_function(fun = antelope_mb, color = "pink") +
-  stat_function(fun = ventura_mb, color = "purple") +
+  stat_function(aes(color = "Kern"), fun = kern_mb, size = 1) +
+  stat_function(aes(color = "Mojave"), fun = mojave_mb, size = 1) +
+  stat_function(aes(color = "Antelope"), fun = antelope_mb, size = 1)+
+  stat_function(aes(color = "Ventura"), fun = ventura_mb, size = 1)+
   theme_minimal() +
   ylim(0, 750) +
-  labs(x = "Amount of Water Used (AF)", y = "Price of Water Reduction ($/AF)",
-       title = "Demand for Water") 
+  labs(x = "Quantity of Water, (Acre Feet, AF)", y = "Price of Reduction ($/AF)",
+       title = "Demand Curves by District") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 ```
 
 Based off of the graph above, Antelope is willing to pay the most for the first unit of abatement. 
 
-# PART 3 - Policy Considerations
-- Here you will analyze three alternative policies for reducing water use among these irrigation districts.
-- In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: (1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, (2) calculate the total cost of meeting the target using that approach, (3) calculate the cost to each district, and (4) calculate the tax revenue generated.
+# Part 3 
 
-### Policy A - Cap Without Trade 
+### Evaluating Policy Considerations
+
+Three different policies for reducing water use among these irrigation districts will be analyzed. 
+
+In total, these irrigation districts will need to reduce water consumption from the current 755 AF down to 500 AF. For each intervention listed below, perform the following calculations: 
+(1) calculate the stringency of the policy (defined below for each intervention) required to achieve the 500 AF target, 
+(2) calculate the total cost of meeting the target using that approach, 
+(3) calculate the cost to each district, and 
+(4) calculate the tax revenue generated.
+
+### **Policy A - Cap Without Trade** 
+
 Reduce each district’s water use by the same fraction (e.g., 1/3 of current baseline use), so the 500 AF target is met. Trade is not allowed. Stringency is defined as the magnitude of the fraction.
 
 
@@ -184,13 +208,18 @@ ventura_cost_abatement <- (0.5 * ventura_use_reduction * ventura_price_abatement
 total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_abatement + ventura_cost_abatement
 # the total cost of abatement for all the districts under this policy is $21,176.32
 ```
-- Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
+(1) Each district has to reduce `r round(a_stringency, 3)`% from their starting baseline to reach the abatement target of 500 AF.  
+
   - Kern reduces `r round(kern_use_reduction, 2)` units from `r kern_baseline` AF down to `r round(kern_abatement_cap, 2)` AF at a price of `r round(kern_price_abatement, 2)` $/AF. 
   - Mojave reduces `r round(mojave_use_reduction, 2)` units from `r mojave_baseline` AF down to `r round(mojave_abatement_cap, 2)`AFat a price of `r round(mojave_price_abatement, 2)` $/AF.
   - Antelope reduces `r round(antelope_use_reduction, 2)` units from `r antelope_baseline` AF down to `r round(antelope_abatement_cap, 2)` AF at a price of `r round(antelope_price_abatement, 2)` $/AF.
   - Ventura reduces `r round(ventura_use_reduction, 2)` units from `r ventura_baseline` AF down to `r round(ventura_abatement_cap, 2)` AF at a price of `r round(ventura_price_abatement, 2)` $/AF.
+  
 
-- The total cost to each district under this cap with no trade policy is: 
+(2) The overall total cost is: 
+  - $`r total_cost_abate`
+
+(3) The total cost to each district under this cap with no trade policy is: 
 
   - Kern: $`r round(kern_cost_abatement, 0)`
 
@@ -199,16 +228,19 @@ total_cost_abate <- kern_cost_abatement + mojave_cost_abatement + antelope_cost_
   - Antelope: $`r round(antelope_cost_abatement, 0)`
 
   - Ventura: $`r round(ventura_cost_abatement, 0)`
+  
 
-- The overall total cost is: 
-  - $`r total_cost_abate`
+(4) No tax revenue is generated with the Cap without Trade policy
+
 
     
 
-### Policy B - Tax on Water Usage
+### **Policy B - Tax on Water Usage**
+
 A single tax is implemented on all water use in each of the four districts, such that water use is reduced to the 500 AF target. Stringency is defined as the magnitude of the tax.
 
-- To evaluate the tax needed to achieve a use target of 500 AF, we must compute the aggregate marginal cost curve and calculate the correspondent $/AF for that reduction (255 AF).
+To evaluate the tax needed to achieve a use target of 500 AF, we must compute the aggregate marginal cost curve and calculate the correspondent $/AF for that reduction (255 AF).
+
 ```{r}
 # step 1: Find the MC Aggregate demand by adding up the inverse slopes of each district's marginal cost curve
 
@@ -263,9 +295,12 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
 # total tax revenue: 79033.44
 
 ```
-- The stringency under this policy is a `r round(tax_target, 2)`
+(1) The stringency under this policy is a `r round(tax_target, 2)`
 
-- The total cost to each district under this tax policy is: 
+(2) The overall total cost of this tax policy is: 
+  - $`r round(total_cost_tax, 4)`
+
+(3) The total cost to each district under this tax policy is: 
 
   - Kern: $`r round(kern_cost_tax, 0)`
 
@@ -275,14 +310,12 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
 
   - Ventura: $`r round(ventura_cost_tax, 0)`
 
-- The overall total cost of this tax policy is: 
-  - $`r round(total_cost_tax, 4)`
   
-- Total tax revenue generated is: 
+(4) Total tax revenue generated is: 
   - $`r round(total_tax_revenue)`
 
 
-### Policy C - Cap and Trade
+### **Policy C - Cap and Trade**
 Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
 Under this policy, the stringency will be the same as Policy A - 0.338% and there will be no tax revenue generated

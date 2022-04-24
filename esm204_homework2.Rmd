@@ -458,6 +458,8 @@ The total cost to each district under this tax policy is:
 
   - Ventura: $`r round(ventura_cost_tax_300, 0)`
 
+### **Policy C - Cap and Trade**
+
 
 
 

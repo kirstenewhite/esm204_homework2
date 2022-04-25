@@ -319,11 +319,15 @@ total_tax_revenue <- (kern_tax_revenue + mojave_tax_revenue +antelope_tax_revenu
 ### **Policy C - Cap and Trade**
 Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).
 
-Under this policy, the stringency will be the same as Policy A - 33.8% and there will be no tax revenue generated
+Under this policy, the overall stringency will be the same as Policy A - 33.8%. Districts will trade water usage rights until there marginal costs of abatement are equal. There will be no tax revenue generated. Di
 
-The cost to each district and the total program cost under a cap without trade policy was found in Policy A (above). 
+The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($158.07). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $21,1763.16.  
 
-The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($158). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $21,1763.16. 
+To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation. Districts 
+- **Kern:** Pre trade = `r round(kern_use_reduction, 2)`; Post trade = `r round(kern_abatement_tax, 2`
+- **Mojave:** Pre trade = `r round(mojave_use_reduction, 2)`; Post trade = `r round(mojave_abatement_tax, 2`
+- **Antelope:** Pre trade = `r round(antelope_use_reduction, 2)`; Post trade = `r round(antelope_abatement_tax, 2`
+- **Ventura:** Pre trade = `r round(ventura_use_reduction, 2)`; Post trade = `r round(ventura_abatement_tax, 2`
 
 
 # Part 4

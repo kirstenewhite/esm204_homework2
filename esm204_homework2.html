@@ -272,9 +272,22 @@ pre code {
 <div id="policy-c---cap-and-trade" class="section level3">
 <h3><strong>Policy C - Cap and Trade</strong></h3>
 <p>Cap water use as in part (a), but after those caps are set, allow trade across districts. How much water is used by each district after trade? Stringency is the same as in part (a).</p>
-<p>Under this policy, the stringency will be the same as Policy A - 33.8% and there will be no tax revenue generated</p>
-<p>The cost to each district and the total program cost under a cap without trade policy was found in Policy A (above).</p>
-<p>The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($158). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy, $21,1763.16.</p>
+<p>Under this policy, the overall stringency will be the same as Policy A - 33.8%. Districts will trade water usage rights until there marginal costs of abatement are equal. There will be no tax revenue generated. Di</p>
+<p>The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($158.07). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy, $21,1763.16.</p>
+<p>To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation.</p>
+<ul>
+<li><strong>Kern:</strong> Pre trade = 50.66; Post trade = 69.13</li>
+<li><strong>Mojave:</strong> Pre trade = 47.28; Post trade = 41.55</li>
+<li><strong>Antelope:</strong> Pre trade = 74.3; Post trade = 55.31</li>
+<li><strong>Ventura:</strong> Pre trade = 82.75; Post trade = 89</li>
+</ul>
+<p><strong>Cost per district</strong></p>
+<ul>
+<li><strong>Kern:</strong> Initial cost of abatement = $5463.92. Kern’s difference in pre and post trade water use is -18.47. Kern sells this differential to other districts for the price of (18.47 x 158.07) = 2,919.44. Therefore, Kern’s total cost is $2544.48</li>
+<li><strong>Mojave:</strong> Initial cost of abatement = $3284.04. Mojave’s difference in pre and post trade water use is 5.73. Mojave buys this differential from other districts for the price of (5.73 x 158.07) = 905.74. Therefore, Mojaves’s total cost is $4189.78</li>
+<li><strong>Antelope:</strong> Initial cost of abatement = $4371.64. Antelope’s difference in pre and post trade water use is 18.99. Antelope buys this differential from other districts for the price of (18.99 x 158.07) = 3,001.75. Therefore, Antelope’s total cost is $7373.39</li>
+<li><strong>Ventura:</strong> Initial cost of abatement = $7033.93. Ventura’s difference in pre and post trade water use is -6.25. Ventura sells this differential to other districts for the price of (6.25 x 158.07) = 987.94. Therefore, Ventura’s total cost is $6045.99</li>
+</ul>
 </div>
 </div>
 <div id="part-4" class="section level1">
@@ -321,16 +334,31 @@ pre code {
 <div id="policy-c---cap-and-trade-1" class="section level3">
 <h3><strong>Policy C - Cap and Trade</strong></h3>
 <p>The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($282.04). Therefore, the total cost of meeting the 300 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy, $44,010.78.</p>
+<p>To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation.</p>
+<ul>
+<li><strong>Kern:</strong> Pre trade = 90.3950993 ; Post trade = 123.36</li>
+<li><strong>Mojave:</strong> Pre trade = 84.3660927; Post trade = 74.14</li>
+<li><strong>Antelope:</strong> Pre trade = 132.5781457; Post trade = 98.7</li>
+<li><strong>Ventura:</strong> Pre trade = 147.6506623; Post trade = 158.8</li>
+</ul>
+<p><strong>Cost per district</strong></p>
+<ul>
+<li><strong>Kern:</strong> Initial cost of abatement = $1.193198^{4}. Kern’s difference in pre and post trade water use is -32.96. Kern sells this differential to other districts for the price of 32.96*282.04 = 9,296.04. Therefore, Kern’s total cost is $2635.94</li>
+<li><strong>Mojave:</strong> Initial cost of abatement = $7171.6. Mojave’s difference in pre and post trade water use is 10.23. Mojave buys this differential from other districts for the price of 10.23*282.04 = 2,885.27. Therefore, Mojaves’s total cost is $1.005687^{4}</li>
+<li><strong>Antelope:</strong> Initial cost of abatement = $9546.68. Antelope’s difference in pre and post trade water use is 33.88. Antelope buys this differential from other districts for the price of 33.88*282.04 = 9,555.52. Therefore, Antelope’s total cost is $1.91022^{4}</li>
+<li><strong>Ventura:</strong> Initial cost of abatement = $1.536053^{4}. Ventura’s difference in pre and post trade water use is -11.15. Ventura sells this differential to other districts for the price of 11.15*282.04 = 3,144.75. Therefore, Ventura’s total cost is $1.221578^{4}</li>
+</ul>
 </div>
 <div id="which-policy-is-preferred" class="section level3">
 <h3>Which Policy is Preferred?</h3>
-<p><strong>Table </strong></p>
+<p><strong>Table 1</strong></p>
 <pre><code>##   District Cap_No_Trade    Tax Cap_and_Trade
-## 1     Kern        7,052 17,396             -
-## 2   Mojave       10,193 10,456             -
-## 3 Antelope       18,944 13,919             -
-## 4  Ventura       14,622 22,395             -</code></pre>
-<p>Part 3 calculates the cost of abatement of reducing total water usage from 755 to 500 AF for each district. Part 4 calculates the cost of abatement of reducing total water usage from 500 to 300 AF for each district. Table 1 displays the total costs of abatement from 755 to 300 AF for each district by policy. As displayed, for all districts except Antelope, the “Cap No Trade” policy will be the least costly. However, Antelope will prefer the tax.</p>
+## 1     Kern        7,052 17,396         5,180
+## 2   Mojave       10,193 10,456        14,247
+## 3 Antelope       18,944 13,919        26,475
+## 4  Ventura       14,622 22,395        18,261</code></pre>
+<p>Part 3 calculates the cost of abatement of reducing total water usage from 755 to 500 AF for each district. Part 4 calculates the cost of abatement of reducing total water usage from 500 to 300 AF for each district. Table 1 displays the total costs of abatement from 755 to 300 AF for each district by policy. As displayed, Kern will prefer the cap and trade policy. Mojave and Ventura prefer the cap with no trade policy. Antelope county prefers taxation.</p>
+<p>In this scenario, usage rights were allocated equally in both the cap with and without trade scenarios. Had usage rights been allocated differently, say to Antelope and Ventura as the largest users, then these districts might favor a cap and trade scenario as they would not need to abate as much. Similarly, districts using less water prefer this equal allocation scenario since do not have to abate as much, and under cap and trade can sell usage rights to further offset the cost of abatement.</p>
 </div>
 </div>
 

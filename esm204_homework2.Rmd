@@ -324,12 +324,14 @@ Under this policy, the overall stringency will be the same as Policy A - 33.8%. 
 The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B (\$158.07). Therefore, the total cost of meeting the 500 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  \$21,1763.16.  
 
 To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation.  
+
   - **Kern:** Pre trade = `r round(kern_use_reduction, 2)`; Post trade = `r round(kern_abatement_tax, 2)`
   - **Mojave:** Pre trade = `r round(mojave_use_reduction, 2)`; Post trade = `r round(mojave_abatement_tax, 2)`
   - **Antelope:** Pre trade = `r round(antelope_use_reduction, 2)`; Post trade = `r round(antelope_abatement_tax, 2)`
   - **Ventura:** Pre trade = `r round(ventura_use_reduction, 2)`; Post trade = `r round(ventura_abatement_tax, 2)`
 
 **Cost per district**
+
   - **Kern:** Initial cost of abatement = $`r round(kern_cost_tax, 2)`. Kern's difference in pre and post trade water use is `r (round(kern_use_reduction, 2) - round(kern_abatement_tax, 2))`. Kern sells this differential to other districts for the price of (18.47 x 158.07) = 2,919.44. Therefore, Kern's total cost is \$`r round(kern_cost_tax, 2) - 2919.44`
   - **Mojave:** Initial cost of abatement = $`r round(mojave_cost_tax, 2)`. Mojave's difference in pre and post trade water use is `r (round(mojave_use_reduction, 2) - round(mojave_abatement_tax, 2))`. Mojave buys this differential from other districts for the price of (5.73 x 158.07) = 905.74. Therefore, Mojaves's total cost is \$`r round(mojave_cost_tax, 2) + 905.74`
   - **Antelope:** Initial cost of abatement = $`r round(antelope_cost_tax, 2)`. Antelope's difference in pre and post trade water use is `r (round(antelope_use_reduction, 2) - round(antelope_abatement_tax, 2))`. Antelope buys this differential from other districts for the price of (18.99 x 158.07) = 3,001.75. Therefore, Antelope's total cost is \$`r round(antelope_cost_tax, 2) + 3001.75`
@@ -482,17 +484,19 @@ The total cost to each district under this tax policy is:
 
 The equimarginal principle tells us that units will be bought and sold at the same tax rate as calculated in Policy B ($282.04). Therefore, the total cost of meeting the 300 AF abatement target using a Cap and Trade policy will be the same as the cost under the Tax policy,  $44,010.78. 
 
-To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation. Districts 
-- **Kern:** Pre trade = `r round(kern_use_reduction, 2) + kern_300_use_reduction` ; Post trade = `r round(kern_300_abatement_tax, 2)`
-- **Mojave:** Pre trade = `r round(mojave_use_reduction, 2) + mojave_300_use_reduction`; Post trade = `r round(mojave_300_abatement_tax, 2)`
-- **Antelope:** Pre trade = `r round(antelope_use_reduction, 2) + antelope_300_use_reduction`; Post trade = `r round(antelope_300_abatement_tax, 2)`
-- **Ventura:** Pre trade = `r round(ventura_use_reduction, 2) + ventura_300_use_reduction`; Post trade = `r round(ventura_300_abatement_tax, 2)`
+To calculate the cost per district, we must first determine water usage under cap and trade for each district for both pre, and post trade. Pre trade water usage levels are equal to those calculated in part A under the cap and no trade policy. Post trade water usage levels are equal to those calculated in part B under taxation. 
+
+  - **Kern:** Pre trade = `r round(kern_use_reduction, 2) + kern_300_use_reduction` ; Post trade = `r round(kern_300_abatement_tax, 2)`
+  - **Mojave:** Pre trade = `r round(mojave_use_reduction, 2) + mojave_300_use_reduction`; Post trade = `r round(mojave_300_abatement_tax, 2)`
+  - **Antelope:** Pre trade = `r round(antelope_use_reduction, 2) + antelope_300_use_reduction`; Post trade = `r round(antelope_300_abatement_tax, 2)`
+  - **Ventura:** Pre trade = `r round(ventura_use_reduction, 2) + ventura_300_use_reduction`; Post trade = `r round(ventura_300_abatement_tax, 2)`
 
 **Cost per district**
-- **Kern:** Initial cost of abatement = $`r round(kern_cost_tax_500_300, 2)`. Kern's difference in pre and post trade water use is `r round((round(kern_use_reduction, 2) + kern_300_use_reduction) - round(kern_300_abatement_tax, 2), 2)`. Kern sells this differential to other districts for the price of 32.96*282.04 = 9,296.04. Therefore, Kern's total cost is \$`r round(kern_cost_tax_500_300, 2) - 9296.04`
-- **Mojave:** Initial cost of abatement = $`r round(mojave_cost_tax_500_300, 2)`. Mojave's difference in pre and post trade water use is `r round((round(mojave_use_reduction, 2) + mojave_300_use_reduction) - round(mojave_300_abatement_tax, 2), 2)`. Mojave buys this differential from other districts for the price of 10.23*282.04 = 2,885.27. Therefore, Mojaves's total cost is \$`r round(mojave_cost_tax_500_300, 2) + 2885.27`
-- **Antelope:** Initial cost of abatement = $`r round(antelope_cost_tax_500_300, 2)`. Antelope's difference in pre and post trade water use is `r round((round(antelope_use_reduction, 2) + antelope_300_use_reduction) - round(antelope_300_abatement_tax, 2), 2)`. Antelope buys this differential from other districts for the price of 33.88*282.04 = 9,555.52. Therefore, Antelope's total cost is \$`r round(antelope_cost_tax_500_300, 2) + 9555.52`
-- **Ventura:** Initial cost of abatement = $`r round(ventura_cost_tax_500_300, 2)`. Ventura's difference in pre and post trade water use is `r round((round(ventura_use_reduction, 2) + ventura_300_use_reduction) - round(ventura_300_abatement_tax, 2), 2)`. Ventura sells this differential to other districts for the price of 11.15*282.04 = 3,144.75. Therefore, Ventura's total cost is \$`r round(ventura_cost_tax_500_300, 2) - 3144.75`
+
+  - **Kern:** Initial cost of abatement = $`r round(kern_cost_tax_500_300, 2)`. Kern's difference in pre and post trade water use is `r round((round(kern_use_reduction, 2) + kern_300_use_reduction) - round(kern_300_abatement_tax, 2), 2)`. Kern sells this differential to other districts for the price of 32.96*282.04 = 9,296.04. Therefore, Kern's total cost is \$`r round(kern_cost_tax_500_300, 2) - 9296.04`
+  - **Mojave:** Initial cost of abatement = $`r round(mojave_cost_tax_500_300, 2)`. Mojave's difference in pre and post trade water use is `r round((round(mojave_use_reduction, 2) + mojave_300_use_reduction) - round(mojave_300_abatement_tax, 2), 2)`. Mojave buys this differential from other districts for the price of 10.23*282.04 = 2,885.27. Therefore, Mojaves's total cost is \$`r round(mojave_cost_tax_500_300, 2) + 2885.27`
+  - **Antelope:** Initial cost of abatement = $`r round(antelope_cost_tax_500_300, 2)`. Antelope's difference in pre and post trade water use is `r round((round(antelope_use_reduction, 2) + antelope_300_use_reduction) - round(antelope_300_abatement_tax, 2), 2)`. Antelope buys this differential from other districts for the price of 33.88*282.04 = 9,555.52. Therefore, Antelope's total cost is \$`r round(antelope_cost_tax_500_300, 2) + 9555.52`
+  - **Ventura:** Initial cost of abatement = $`r round(ventura_cost_tax_500_300, 2)`. Ventura's difference in pre and post trade water use is `r round((round(ventura_use_reduction, 2) + ventura_300_use_reduction) - round(ventura_300_abatement_tax, 2), 2)`. Ventura sells this differential to other districts for the price of 11.15*282.04 = 3,144.75. Therefore, Ventura's total cost is \$`r round(ventura_cost_tax_500_300, 2) - 3144.75`
 
 ### Which Policy is Preferred?
 **Table 1**
@@ -501,7 +505,7 @@ To calculate the cost per district, we must first determine water usage under ca
 District  = c("Kern", "Mojave", "Antelope", "Ventura")
 Cap_No_Trade = c("7,052", "10,193", "18,944", "14,622")
 Tax = c("17,396", "10,456", "13,919", "22,395")
-Cap_and_Trade = c("-", "-", "-", "-")
+Cap_and_Trade = c("5,180", "14,247", "26,475", "18,261")
 
 df <- data.frame(District, Cap_No_Trade, Tax, Cap_and_Trade)
 
@@ -509,4 +513,6 @@ df
                   
 ```
 
-Part 3 calculates the cost of abatement of reducing total water usage from 755 to 500 AF for each district. Part 4 calculates the cost of abatement of reducing total water usage from 500 to 300 AF for each district. Table 1  displays the total costs of abatement from 755 to 300 AF for each district by policy. As displayed, for all districts except Antelope, the "Cap No Trade" policy will be the least costly. However, Antelope will prefer the tax. 
+Part 3 calculates the cost of abatement of reducing total water usage from 755 to 500 AF for each district. Part 4 calculates the cost of abatement of reducing total water usage from 500 to 300 AF for each district. Table 1  displays the total costs of abatement from 755 to 300 AF for each district by policy. As displayed, Kern will prefer the cap and trade policy. Mojave and Ventura prefer the cap with no trade policy. Antelope county prefers taxation. 
+
+In this scenario, usage rights were allocated equally in both the cap with and without trade scenarios. Had usage rights been allocated differently, say to Antelope and Ventura as the largest users, then these districts might favor a cap and trade scenario as they would not need to abate as much. Similarly, districts using less water prefer this equal allocation scenario since do not have to abate as much, and under cap and trade can sell usage rights to further offset the cost of abatement. 
